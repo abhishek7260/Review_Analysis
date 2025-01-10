@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/612150721187240899/9c865f10a08e4542acb331417bad59a4/artifacts
+end_time: 1736507171152
+entry_point_name: ''
+experiment_id: '612150721187240899'
+lifecycle_stage: active
+run_id: 9c865f10a08e4542acb331417bad59a4
+run_name: LogisticRegression_Classifier
+run_uuid: 9c865f10a08e4542acb331417bad59a4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1736507171096
+status: 4
+tags: []
+user_id: Abhishek

@@ -19,3 +19,9 @@ stages:
     - src/models/train_model.py
     outs:
     - results/lr_model.pkl
+  model_evaluation:
+    cmd: python src/models/predict_model.py
+    deps:
+    - data/processed
+    - results/lr_model.pkl
+    - src/models/predict_model.py

@@ -20,3 +20,4 @@ lr_model = LogisticRegression(random_state=42, max_iter=1000)
 lr_model.fit(x_train_tfidf, y_train)
 
 pickle.dump(lr_model,open("results/lr_model.pkl","wb"))
+pickle.dump(tfidf, open("results/tfidf_vectorizer.pkl", "wb"))
