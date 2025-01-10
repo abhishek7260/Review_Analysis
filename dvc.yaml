@@ -12,3 +12,10 @@ stages:
     - src/features/build_features.py
     outs:
     - data/processed
+  model_training:
+    cmd: python src/models/train_model.py
+    deps:
+    - data/processed
+    - src/models/train_model.py
+    outs:
+    - results/lr_model.pkl
