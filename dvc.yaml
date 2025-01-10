@@ -1,0 +1,7 @@
+stages:
+  data_collection:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - src/data/make_dataset.py
+    outs:
+    - data/raw
