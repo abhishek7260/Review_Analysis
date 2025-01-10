@@ -41,13 +41,13 @@ stages:
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
-      md5: cb3b8c4781dd9f7d6d1f3f3917f56088
-      size: 905
+      md5: 9e6522a070f4889ee86d00c4526d582b
+      size: 870
     outs:
-    - path: results/rfc_model.pkl
+    - path: results/svc_model.pkl
       hash: md5
-      md5: fec9d005a63cc2c72133b31104821bdf
-      size: 75248
+      md5: 2727432414a0e4801478523a4cd7926a
+      size: 8566283
   model_evaluation:
     cmd: python src/models/predict_model.py
     deps:
@@ -56,11 +56,11 @@ stages:
       md5: 4c9820f76c800a0b339370b9f21373f6.dir
       size: 37229
       nfiles: 2
-    - path: results/rfc_model.pkl
+    - path: results/svc_model.pkl
       hash: md5
-      md5: fec9d005a63cc2c72133b31104821bdf
-      size: 75248
+      md5: 2727432414a0e4801478523a4cd7926a
+      size: 8566283
     - path: src/models/predict_model.py
       hash: md5
-      md5: f2633dc04c5c76177bbb40fc6092df94
-      size: 2994
+      md5: e1a6df51c4a937cfd3dcea1815c1846c
+      size: 3001
