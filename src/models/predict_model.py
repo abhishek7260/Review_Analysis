@@ -12,7 +12,7 @@ dagshub.init(repo_owner='abhishek7260', repo_name='Review_Analysis', mlflow=True
 
 # Set up MLflow tracking URI and experiment
 mlflow.set_tracking_uri("https://dagshub.com/abhishek7260/Review_Analysis.mlflow")
-mlflow.set_experiment("lr review result")
+mlflow.set_experiment("RandomForest Classifier review result")
 
 # Load the test data
 test_data = pd.read_csv("E:\\review_classification\\data\\processed\\processed_test.csv")
@@ -27,33 +27,33 @@ y_test = y_test.values.flatten()
 # Load the pre-trained TfidfVectorizer and model
 tfidf = pickle.load(open("results/tfidf_vectorizer.pkl", "rb"))
 x_test_tfidf = tfidf.transform(x_test).toarray()
-lr_model = pickle.load(open("results/lr_model.pkl", "rb"))
+rfc_model = pickle.load(open("results/rfc_model.pkl", "rb"))
 
 # Start an MLflow run
-with mlflow.start_run(run_name="LogisticRegression_Classifier"):
+with mlflow.start_run(run_name="RandmForest_Classifier"):
     # Predictions
-    lr_predictions = lr_model.predict(x_test_tfidf)
+    rfc_predictions = rfc_model.predict(x_test_tfidf)
 
     # Metrics
-    lr_accuracy = accuracy_score(y_test, lr_predictions)
-    lr_precision = precision_score(y_test, lr_predictions)
-    lr_recall = recall_score(y_test, lr_predictions)
-    lr_conf_matrix = confusion_matrix(y_test, lr_predictions)
+    rfc_accuracy = accuracy_score(y_test, rfc_predictions)
+    rfc_precision = precision_score(y_test, rfc_predictions)
+    rfc_recall = recall_score(y_test, rfc_predictions)
+    rfc_conf_matrix = confusion_matrix(y_test, rfc_predictions)
 
     # Log parameters, metrics, and artifacts
-    mlflow.log_param("model_type", "LogisticRegression")
+    mlflow.log_param("model_type", "RandomForest Classifier")
     mlflow.log_param("max_iter", 1000)
-    mlflow.log_metric("accuracy", lr_accuracy)
-    mlflow.log_metric("precision", lr_precision)
-    mlflow.log_metric("recall", lr_recall)
+    mlflow.log_metric("accuracy", rfc_accuracy)
+    mlflow.log_metric("precision", rfc_precision)
+    mlflow.log_metric("recall", rfc_recall)
 
     # Log the classification report
-    report = classification_report(y_test, lr_predictions, output_dict=True)
+    report = classification_report(y_test, rfc_predictions, output_dict=True)
     mlflow.log_dict(report, "classification_report.json")
 
     # Log confusion matrix as an artifact
     plt.figure(figsize=(6, 6))
-    sns.heatmap(lr_conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Liked", "Liked"], yticklabels=["Not Liked", "Liked"])
+    sns.heatmap(rfc_conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Liked", "Liked"], yticklabels=["Not Liked", "Liked"])
     plt.title("Confusion Matrix")
     plt.ylabel("True Label")
     plt.xlabel("Predicted Label")
@@ -65,11 +65,11 @@ with mlflow.start_run(run_name="LogisticRegression_Classifier"):
     mlflow.log_artifact("processed_test_logged.csv")
 
     # Log the model
-    mlflow.sklearn.log_model(lr_model, "logistic_regression_model")
+    mlflow.sklearn.log_model(rfc_model, "RandomForestClassifier_model")
 
     # Print the results
-    print("\nLogistic Regression Classifier:")
-    print(f"Accuracy: {lr_accuracy:.2f}")
-    print(f"Precision: {lr_precision:.2f}")
-    print(f"Recall: {lr_recall:.2f}")
-    print(classification_report(y_test, lr_predictions))
+    print("\nRandomForest Classifier:")
+    print(f"Accuracy: {rfc_accuracy:.2f}")
+    print(f"Precision: {rfc_precision:.2f}")
+    print(f"Recall: {rfc_recall:.2f}")
+    print(classification_report(y_test, rfc_predictions))

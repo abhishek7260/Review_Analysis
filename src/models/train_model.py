@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 import pickle
 
 # Load data
@@ -16,8 +17,8 @@ tfidf = TfidfVectorizer(max_features=5000)
 x_train_tfidf = tfidf.fit_transform(x_train).toarray()
 
 # Train Logistic Regression model
-lr_model = LogisticRegression(random_state=42, max_iter=1000)
-lr_model.fit(x_train_tfidf, y_train)
+rfc_model = RandomForestClassifier(random_state=42, n_estimators=100,max_depth=2)
+rfc_model.fit(x_train_tfidf, y_train)
 
-pickle.dump(lr_model,open("results/lr_model.pkl","wb"))
+pickle.dump(rfc_model,open("results/rfc_model.pkl","wb"))
 pickle.dump(tfidf, open("results/tfidf_vectorizer.pkl", "wb"))
